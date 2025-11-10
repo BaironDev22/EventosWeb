@@ -1,0 +1,240 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Hero from '../components/Hero.jsx';
+import ServiceCard from '../components/ServiceCard.astro';
+import { generateLocalBusinessSchema, seoConfig } from '../utils/seoConfig.js';
+
+const services = [
+  {
+    title: 'Matrimonios',
+    description: 'Celebra el día más especial de tu vida con una boda de ensueño. Nos encargamos de cada detalle para que tu celebración sea perfecta e inolvidable.',
+    icon: 'heart',
+    features: [
+      'Coordinación completa del evento',
+      'Decoración personalizada y elegante',
+      'Catering gourmet y barra libre',
+      'Fotografía y vídeo profesional',
+      'DJ y entretenimiento premium',
+    ],
+  },
+  {
+    title: 'Eventos Corporativos',
+    description: 'Cenas de empresa, presentaciones de producto y eventos corporativos que reflejan la profesionalidad y valores de tu marca.',
+    icon: 'briefcase',
+    features: [
+      'Planificación estratégica del evento',
+      'Espacios exclusivos y versátiles',
+      'Tecnología audiovisual de última generación',
+      'Catering ejecutivo personalizado',
+      'Servicio de protocolo empresarial',
+    ],
+  },
+  {
+    title: 'Comuniones',
+    description: 'Celebraciones de Primera Comunión mágicas y emotivas, diseñadas especialmente para crear recuerdos inolvidables en familia.',
+    icon: 'sparkles',
+    features: [
+      'Decoración temática personalizada',
+      'Menús infantiles y para adultos',
+      'Animación y actividades para niños',
+      'Tartas y mesas dulces espectaculares',
+      'Fotografía familiar profesional',
+    ],
+  },
+  {
+    title: 'Cenas Privadas',
+    description: 'Experiencias gastronómicas exclusivas en ambientes íntimos y elegantes para tus celebraciones más especiales.',
+    icon: 'utensils',
+    features: [
+      'Chef privado de alta cocina',
+      'Menús degustación personalizados',
+      'Sumiller y maridaje de vinos',
+      'Servicio de mesa impecable',
+      'Ambientación sofisticada',
+    ],
+  },
+];
+
+const galleryImages = [
+  { src: 'https://images.unsplash.com/photo-1606800052052-a08af7148866?w=800&q=80', alt: 'Boda elegante', category: 'Matrimonios' },
+  { src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800', alt: 'Evento corporativo', category: 'Corporativo' },
+  { src: 'https://images.unsplash.com/photo-1530023367847-a683933f4172?w=800', alt: 'Decoración de evento', category: 'Decoración' },
+  { src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?w=800', alt: 'Mesa de celebración', category: 'Catering' },
+  { src: 'https://images.unsplash.com/photo-1478146896981-b80fe463b330?w=800', alt: 'Celebración nocturna', category: 'Eventos' },
+  { src: 'https://images.unsplash.com/photo-1515169067868-5387ec356754?w=800', alt: 'Recepción elegante', category: 'Recepciones' },
+];
+
+const jsonLD = generateLocalBusinessSchema();
+---
+
+<MainLayout
+  title="Eventos Premium - Organizamos tus Eventos Inolvidables"
+  description="Empresa líder en organización de eventos privados: matrimonios, cenas empresariales, comuniones y celebraciones exclusivas. Creamos experiencias únicas e inolvidables."
+  jsonLD={jsonLD}
+>
+  <!-- Hero Section -->
+  <Hero client:load />
+
+  <!-- Services Section -->
+  <section id="servicios" class="section-padding bg-white">
+    <div class="container-custom">
+      <!-- Section Header -->
+      <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-serif font-bold text-dark-900 mb-4">
+          Nuestros Servicios
+        </h2>
+        <p class="text-lg text-dark-600 leading-relaxed">
+          Ofrecemos soluciones integrales para cada tipo de evento, adaptándonos a tus necesidades y superando tus expectativas.
+        </p>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {services.map((service, index) => (
+          <ServiceCard
+            title={service.title}
+            description={service.description}
+            icon={service.icon}
+            features={service.features}
+            delay={index * 100}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section id="galeria" class="section-padding bg-dark-50">
+    <div class="container-custom">
+      <!-- Section Header -->
+      <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-serif font-bold text-dark-900 mb-4">
+          Galería de Eventos
+        </h2>
+        <p class="text-lg text-dark-600 leading-relaxed">
+          Descubre algunos de los eventos memorables que hemos organizado para nuestros clientes.
+        </p>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {galleryImages.map((image, index) => (
+          <div
+            class="relative group overflow-hidden rounded-xl shadow-lg aspect-[4/3]"
+            data-aos="zoom-in"
+            data-aos-delay={index * 50}
+          >
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-dark-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div class="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <span class="inline-block px-3 py-1 text-xs font-medium text-white bg-primary-600 rounded-full mb-2">
+                  {image.category}
+                </span>
+                <p class="text-white font-medium">{image.alt}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <!-- Section Header -->
+      <div class="max-w-3xl mx-auto text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-serif font-bold text-dark-900 mb-4">
+          Lo Que Dicen Nuestros Clientes
+        </h2>
+        <p class="text-lg text-dark-600 leading-relaxed">
+          La satisfacción de nuestros clientes es nuestra mejor carta de presentación.
+        </p>
+      </div>
+
+      <!-- Testimonials Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {[
+          {
+            name: 'María y Carlos',
+            event: 'Matrimonio',
+            text: 'Nuestro día especial fue perfecto gracias al equipo de Eventos Premium. Cada detalle fue cuidado con esmero y profesionalidad. ¡Altamente recomendados!',
+            rating: 5,
+          },
+          {
+            name: 'Empresa TechCorp',
+            event: 'Evento Corporativo',
+            text: 'La cena anual de nuestra empresa fue un éxito rotundo. Organización impecable, catering excelente y un ambiente sofisticado. Volveremos a contar con ellos.',
+            rating: 5,
+          },
+          {
+            name: 'Familia González',
+            event: 'Primera Comunión',
+            text: 'La comunión de nuestra hija fue mágica. El equipo se encargó de todo y los niños disfrutaron muchísimo. Un recuerdo inolvidable para toda la familia.',
+            rating: 5,
+          },
+        ].map((testimonial, index) => (
+          <div
+            class="bg-dark-50 rounded-xl p-8 relative"
+            data-aos="fade-up"
+            data-aos-delay={index * 100}
+          >
+            <!-- Quote Icon -->
+            <div class="text-primary-300 text-6xl font-serif leading-none mb-4">"</div>
+            
+            <!-- Stars -->
+            <div class="flex mb-4">
+              {Array.from({ length: testimonial.rating }).map(() => (
+                <svg class="w-5 h-5 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                  <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                </svg>
+              ))}
+            </div>
+
+            <p class="text-dark-700 mb-6 leading-relaxed">
+              {testimonial.text}
+            </p>
+
+            <div>
+              <p class="font-semibold text-dark-900">{testimonial.name}</p>
+              <p class="text-sm text-dark-500">{testimonial.event}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section-padding bg-gradient-to-br from-primary-900 via-primary-800 to-dark-900 text-white">
+    <div class="container-custom">
+      <div class="max-w-4xl mx-auto text-center" data-aos="zoom-in">
+        <h2 class="text-4xl md:text-5xl font-serif font-bold mb-6">
+          ¿Listo para Crear Tu Evento Perfecto?
+        </h2>
+        <p class="text-xl text-primary-100 mb-10 leading-relaxed">
+          Contáctanos hoy y déjanos ayudarte a planificar el evento de tus sueños. Nuestro equipo de expertos está listo para hacer realidad tu visión.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-primary-900 bg-white rounded-lg shadow-lg hover:bg-primary-50 transform hover:-translate-y-1 transition-all duration-300"
+          >
+            Solicitar Presupuesto Gratis
+          </a>
+          <a
+            href="tel:+34900123456"
+            class="inline-flex items-center justify-center px-8 py-4 text-lg font-medium text-white bg-white/10 backdrop-blur-sm border-2 border-white/20 rounded-lg hover:bg-white/20 transition-all duration-300"
+          >
+            Llamar Ahora
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>

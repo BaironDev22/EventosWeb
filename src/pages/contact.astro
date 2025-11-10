@@ -1,0 +1,305 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
+
+const contactInfo = [
+  {
+    icon: Phone,
+    title: 'Teléfono',
+    content: '+34 900 123 456',
+    link: 'tel:+34900123456',
+  },
+  {
+    icon: Mail,
+    title: 'Email',
+    content: 'info@eventospremium.com',
+    link: 'mailto:info@eventospremium.com',
+  },
+  {
+    icon: MapPin,
+    title: 'Dirección',
+    content: 'Calle Principal 123, 28001 Madrid, España',
+    link: 'https://maps.google.com',
+  },
+  {
+    icon: Clock,
+    title: 'Horario',
+    content: 'Lun - Vie: 9:00 - 18:00',
+    link: null,
+  },
+];
+---
+
+<MainLayout
+  title="Contacto - Eventos Premium"
+  description="Contacta con Eventos Premium para solicitar presupuesto o más información sobre nuestros servicios de organización de eventos privados."
+>
+  <!-- Hero Section -->
+  <section class="relative pt-24 pb-16 md:pt-32 md:pb-24 bg-gradient-to-br from-dark-900 via-dark-800 to-primary-950 text-white overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute inset-0" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+      }}></div>
+    </div>
+
+    <div class="container-custom relative z-10">
+      <div class="max-w-4xl mx-auto text-center" data-aos="fade-up">
+        <h1 class="text-4xl md:text-6xl font-serif font-bold mb-6">
+          Contacta con Nosotros
+        </h1>
+        <p class="text-xl text-dark-200 leading-relaxed">
+          Estamos aquí para ayudarte a crear el evento perfecto. Cuéntanos tu idea y te ofreceremos una solución personalizada.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Contact Info -->
+        <div class="lg:col-span-1 space-y-8">
+          <div data-aos="fade-right">
+            <h2 class="text-3xl font-serif font-bold text-dark-900 mb-6">
+              Información de Contacto
+            </h2>
+            <p class="text-dark-600 mb-8 leading-relaxed">
+              No dudes en ponerte en contacto con nosotros. Responderemos lo antes posible.
+            </p>
+          </div>
+
+          <div class="space-y-6">
+            {contactInfo.map((info, index) => {
+              const Icon = info.icon;
+              return (
+                <div
+                  class="flex items-start space-x-4"
+                  data-aos="fade-right"
+                  data-aos-delay={index * 100}
+                >
+                  <div class="flex-shrink-0 w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
+                    <Icon className="w-6 h-6 text-primary-600" />
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-dark-900 mb-1">
+                      {info.title}
+                    </h3>
+                    {info.link ? (
+                      <a
+                        href={info.link}
+                        class="text-dark-600 hover:text-primary-600 transition-colors"
+                        target={info.link.startsWith('http') ? '_blank' : undefined}
+                        rel={info.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      >
+                        {info.content}
+                      </a>
+                    ) : (
+                      <p class="text-dark-600">{info.content}</p>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <!-- Social Media -->
+          <div data-aos="fade-right" data-aos-delay="400">
+            <h3 class="font-semibold text-dark-900 mb-4">Síguenos</h3>
+            <div class="flex space-x-3">
+              {['facebook', 'instagram', 'twitter', 'linkedin'].map((social) => (
+                <a
+                  href={`https://${social}.com`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="w-10 h-10 bg-dark-100 hover:bg-primary-600 rounded-lg flex items-center justify-center transition-all duration-300 group"
+                  aria-label={social}
+                >
+                  <span class="text-dark-600 group-hover:text-white text-sm font-medium uppercase">
+                    {social[0]}
+                  </span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="lg:col-span-2" data-aos="fade-left">
+          <div class="bg-dark-50 rounded-2xl p-8 md:p-10">
+            <h3 class="text-2xl font-serif font-bold text-dark-900 mb-6">
+              Solicita tu Presupuesto
+            </h3>
+            
+            <form class="space-y-6">
+              <!-- Name -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="name" class="block text-sm font-medium text-dark-700 mb-2">
+                    Nombre completo *
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    class="w-full px-4 py-3 bg-white border border-dark-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    placeholder="Tu nombre"
+                  />
+                </div>
+                
+                <!-- Email -->
+                <div>
+                  <label for="email" class="block text-sm font-medium text-dark-700 mb-2">
+                    Email *
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    class="w-full px-4 py-3 bg-white border border-dark-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    placeholder="tu@email.com"
+                  />
+                </div>
+              </div>
+
+              <!-- Phone & Event Type -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="phone" class="block text-sm font-medium text-dark-700 mb-2">
+                    Teléfono *
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    required
+                    class="w-full px-4 py-3 bg-white border border-dark-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    placeholder="+34 600 000 000"
+                  />
+                </div>
+                
+                <div>
+                  <label for="event-type" class="block text-sm font-medium text-dark-700 mb-2">
+                    Tipo de evento *
+                  </label>
+                  <select
+                    id="event-type"
+                    name="event-type"
+                    required
+                    class="w-full px-4 py-3 bg-white border border-dark-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  >
+                    <option value="">Selecciona una opción</option>
+                    <option value="matrimonio">Matrimonio</option>
+                    <option value="corporativo">Evento Corporativo</option>
+                    <option value="comunion">Comunión</option>
+                    <option value="cena-privada">Cena Privada</option>
+                    <option value="otro">Otro</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Date & Guests -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label for="date" class="block text-sm font-medium text-dark-700 mb-2">
+                    Fecha aproximada
+                  </label>
+                  <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    class="w-full px-4 py-3 bg-white border border-dark-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                  />
+                </div>
+                
+                <div>
+                  <label for="guests" class="block text-sm font-medium text-dark-700 mb-2">
+                    Número de invitados
+                  </label>
+                  <input
+                    type="number"
+                    id="guests"
+                    name="guests"
+                    min="1"
+                    class="w-full px-4 py-3 bg-white border border-dark-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
+                    placeholder="50"
+                  />
+                </div>
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label for="message" class="block text-sm font-medium text-dark-700 mb-2">
+                  Cuéntanos sobre tu evento *
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="5"
+                  required
+                  class="w-full px-4 py-3 bg-white border border-dark-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all resize-none"
+                  placeholder="Describe tu evento, necesidades especiales, presupuesto aproximado, etc."
+                ></textarea>
+              </div>
+
+              <!-- Privacy -->
+              <div class="flex items-start">
+                <input
+                  type="checkbox"
+                  id="privacy"
+                  name="privacy"
+                  required
+                  class="mt-1 w-4 h-4 text-primary-600 border-dark-300 rounded focus:ring-primary-500"
+                />
+                <label for="privacy" class="ml-3 text-sm text-dark-600">
+                  Acepto la <a href="/privacidad" class="text-primary-600 hover:underline">política de privacidad</a> y el tratamiento de mis datos personales.
+                </label>
+              </div>
+
+              <!-- Submit Button -->
+              <button
+                type="submit"
+                class="w-full btn-primary flex items-center justify-center group"
+              >
+                Enviar Solicitud
+                <Send className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+              </button>
+
+              <p class="text-sm text-dark-500 text-center">
+                * Campos obligatorios. Te responderemos en menos de 24 horas.
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section (Placeholder) -->
+  <section class="h-96 bg-dark-200">
+    <div class="w-full h-full flex items-center justify-center text-dark-500">
+      <div class="text-center">
+        <MapPin className="w-12 h-12 mx-auto mb-4 text-dark-400" />
+        <p class="text-lg font-medium">Mapa de ubicación</p>
+        <p class="text-sm">Integra aquí tu Google Maps o servicio de mapas preferido</p>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<script>
+  // Form submission handler (ejemplo básico)
+  const form = document.querySelector('form');
+  
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    // Aquí puedes agregar tu lógica de envío de formulario
+    // Por ejemplo, usar Formspree, Netlify Forms, o tu propio backend
+    
+    alert('Gracias por tu solicitud. Te contactaremos pronto.');
+    form.reset();
+  });
+</script>
