@@ -1,10 +1,10 @@
 services:
   - type: web
     name: eventos-premium
-    runtime: node
-    plan: free
+    runtime: static
     buildCommand: npm install && npm run build
-    startCommand: npm run preview
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: true
     envVars:
       - key: NODE_VERSION
         value: 18
