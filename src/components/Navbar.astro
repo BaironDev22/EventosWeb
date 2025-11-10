@@ -177,7 +177,6 @@ const navItems = [
     const hamburgerLines = document.querySelectorAll('.hamburger-line') as NodeListOf<HTMLElement>;
 
     // Manejar el cambio de estilo del navbar al hacer scroll
-    let lastScroll = 0;
     
     function updateNavbar() {
       const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
@@ -186,7 +185,7 @@ const navItems = [
         if (mainNav) {
           mainNav.style.background = 'rgba(15, 23, 42, 0.98)';
           mainNav.style.backdropFilter = 'blur(20px)';
-          mainNav.style.webkitBackdropFilter = 'blur(20px)';
+          (mainNav.style as any).webkitBackdropFilter = 'blur(20px)';
           mainNav.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
           mainNav.style.border = '1px solid rgba(255, 255, 255, 0.1)';
         }
@@ -194,13 +193,11 @@ const navItems = [
         if (mainNav) {
           mainNav.style.background = 'rgba(15, 23, 42, 0.5)';
           mainNav.style.backdropFilter = 'blur(12px)';
-          mainNav.style.webkitBackdropFilter = 'blur(12px)';
+          (mainNav.style as any).webkitBackdropFilter = 'blur(12px)';
           mainNav.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
           mainNav.style.border = '1px solid rgba(255, 255, 255, 0.1)';
         }
       }
-      
-      lastScroll = currentScroll;
     }
 
     // Ejecutar al cargar y al hacer scroll
